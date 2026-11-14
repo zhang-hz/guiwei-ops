@@ -1,0 +1,15 @@
+# 本机环境与凭据
+.env
+.env.*
+!.env.example
+*.pem
+
+# 依赖与构建输出
+node_modules/
+dist/
+build/
+coverage/
+
+# 运行时与本机证据
+*.log
+tmp/
