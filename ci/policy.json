@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "version": "m1.1",
+  "qualification": "m1",
+  "registryVersion": 1,
+  "reportVersion": 1,
+  "eligible": false,
+  "targets": {
+    "application": [
+      { "id": "registry", "tier": "integrity" },
+      { "id": "entrypoint-canary", "tier": "integrity" }
+    ],
+    "control": [
+      { "id": "control-unit", "tier": "unit" },
+      { "id": "control-canary", "tier": "integrity" }
+    ]
+  }
+}

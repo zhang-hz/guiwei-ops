@@ -1,0 +1,192 @@
+name: GUIWEI ops ci bootstrap
+
+run-name: ops-ci/bootstrap ${{ github.sha }}
+
+on:
+  push:
+    branches:
+      - codex/integrated-development
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ops-ci-bootstrap-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  control-bootstrap:
+    name: ops-ci/bootstrap
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    env:
+      CI: "true"
+      EXPECTED_NODE_VERSION: v24.16.0
+      EXPECTED_NODE_ARCHIVE: node-v24.16.0-linux-x64.tar.xz
+      EXPECTED_NODE_SHA256: d804845d34eddc21dc1092b519d643ef40b1f58ec5dec5c22b1f4bd8fabde6c9
+      EXPECTED_IMAGE: docker.io/library/node@sha256:ca520832af80fa37a57c14077ed0fcdd83b5aefccc356059fdc3a9a05b78ae1f
+      EXPECTED_IMAGE_ID: sha256:d9e872c3ee59358dc71c3c99957c2d8ccd3f21419fee87b742faddcf00a6ecee
+    steps:
+      - name: Validate push source and workflow identities
+        shell: bash
+        env:
+          SOURCE_SHA: ${{ github.event.after }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+        run: |
+          set -euo pipefail
+
+          if [[ ! "$SOURCE_SHA" =~ ^[a-f0-9]{40}$ ]]; then
+            echo "::error title=Source SHA invalid::push source SHA is not a full 40-character lowercase object ID"
+            exit 2
+          fi
+          if [[ "$SOURCE_SHA" == "0000000000000000000000000000000000000000" ]]; then
+            echo "::error title=Source SHA invalid::branch deletion event is not bootstrap input"
+            exit 2
+          fi
+          if [[ ! "$WORKFLOW_SHA" =~ ^[a-f0-9]{40}$ ]]; then
+            echo "::error title=Workflow SHA invalid::workflow SHA is not a full 40-character lowercase object ID"
+            exit 2
+          fi
+
+          {
+            echo "### ops-ci/bootstrap identity"
+            echo ""
+            echo "- sourceSha: \`$SOURCE_SHA\`"
+            echo "- workflowSha: \`$WORKFLOW_SHA\`"
+            echo "- workflowRef: \`$WORKFLOW_REF\`"
+            echo "- runner: \`ubuntu-24.04\`"
+            echo "- qualification: \`m1\` (candidate only)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Checkout exact pushed source
+        # actions/checkout v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.after }}
+          persist-credentials: false
+          fetch-depth: 1
+          submodules: false
+
+      - name: Verify checkout identity and clean source
+        shell: bash
+        env:
+          SOURCE_SHA: ${{ github.event.after }}
+        run: |
+          set -euo pipefail
+          actual_head=$(git rev-parse HEAD)
+          if [[ "$actual_head" != "$SOURCE_SHA" ]]; then
+            echo "::error title=Checkout mismatch::checked-out HEAD does not match push source SHA"
+            exit 10
+          fi
+          if [[ -n "$(git status --porcelain=v1)" ]]; then
+            echo "::error title=Dirty source::control bootstrap requires a clean checkout"
+            exit 10
+          fi
+          echo "- checkedOutHead: \`$actual_head\`" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Install pinned Node runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="$RUNNER_TEMP/$EXPECTED_NODE_ARCHIVE"
+          runtime_root="$RUNNER_TEMP/control-node-runtime"
+          curl --fail --location --silent --show-error \
+            --retry 3 --retry-all-errors \
+            "https://nodejs.org/dist/v${EXPECTED_NODE_VERSION#v}/$EXPECTED_NODE_ARCHIVE" \
+            --output "$archive"
+          printf '%s  %s\n' "$EXPECTED_NODE_SHA256" "$archive" | sha256sum --check -
+          mkdir -p "$runtime_root"
+          tar -xJf "$archive" -C "$runtime_root" --strip-components=1
+          actual_node=$("$runtime_root/bin/node" --version)
+          if [[ "$actual_node" != "$EXPECTED_NODE_VERSION" ]]; then
+            echo "::error title=Node mismatch::installed runtime does not match the pinned Node version"
+            exit 10
+          fi
+          echo "$runtime_root/bin" >> "$GITHUB_PATH"
+          {
+            echo "- nodeVersion: \`$actual_node\`"
+            echo "- nodeArchiveSha256: \`$EXPECTED_NODE_SHA256\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Preload pinned Node image
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker version
+          docker pull "$EXPECTED_IMAGE"
+          actual_image_id=$(docker image inspect --format '{{.Id}}' "$EXPECTED_IMAGE")
+          if [[ "$actual_image_id" != "$EXPECTED_IMAGE_ID" ]]; then
+            echo "::error title=Image mismatch::preloaded image config ID differs from the pinned value"
+            exit 10
+          fi
+          {
+            echo "- image: \`$EXPECTED_IMAGE\`"
+            echo "- imageId: \`$actual_image_id\`"
+            echo "- dockerVersion: \`$(docker version --format '{{.Server.Version}}')\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run authoritative ops ci bootstrap
+        id: ops_bootstrap
+        shell: bash
+        env:
+          OPS_CI_EVIDENCE_PUBLICATION: github-actions-v1
+          OPS_CI_EVIDENCE_INVOCATION: "${{ github.run_id }}:${{ github.run_attempt }}:${{ github.job }}"
+        run: |
+          set -euo pipefail
+          export PATH="$RUNNER_TEMP/control-node-runtime/bin:$PATH"
+
+          set +e
+          sh ./bin/ops ci --profile local --json --evidence-dir "$RUNNER_TEMP/ops-ci-evidence"
+          ops_exit=$?
+          set -e
+          printf 'ops_exit=%s\n' "$ops_exit" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "- opsCiExitCode: \`$ops_exit\`"
+            echo "- evidenceDirectory: \`$RUNNER_TEMP/ops-ci-evidence\`"
+            echo "- policy/registry/runtime/control identities: emitted in parent envelope and result.json"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [[ "$ops_exit" -ne 0 ]]; then
+            echo "::error title=ops ci failed::authoritative bootstrap exited with code $ops_exit"
+            exit "$ops_exit"
+          fi
+
+      - name: Qualify this invocation's artifact IO
+        id: evidence_publication
+        if: ${{ always() && (steps.ops_bootstrap.outcome == 'success' || steps.ops_bootstrap.outcome == 'failure' || steps.ops_bootstrap.outputs.evidence_receipt != '') }}
+        timeout-minutes: 1
+        shell: bash
+        env:
+          EVIDENCE_RECEIPT: ${{ steps.ops_bootstrap.outputs.evidence_receipt }}
+          EVIDENCE_INVOCATION: "${{ github.run_id }}:${{ github.run_attempt }}:${{ github.job }}"
+          OPS_ACTUAL_EXIT: ${{ steps.ops_bootstrap.outputs.ops_exit }}
+        run: |
+          set -euo pipefail
+          # 封闭artifact IO验证：不运行suite，也不以报告自称exported授予资格。
+          "$RUNNER_TEMP/control-node-runtime/bin/node" --input-type=module <<'NODE' >> "$GITHUB_OUTPUT"
+          import { verifyEvidencePublication } from './lib/ci/evidence-publication.mjs';
+          await verifyEvidencePublication({
+            encoded: process.env.EVIDENCE_RECEIPT,
+            invocation: process.env.EVIDENCE_INVOCATION,
+            destination: `${process.env.RUNNER_TEMP}/ops-ci-evidence`,
+            actualExitCode: process.env.OPS_ACTUAL_EXIT,
+          });
+          process.stdout.write('evidence_ready=true\n');
+          NODE
+
+      - name: Preserve parent CI evidence
+        if: ${{ always() && steps.evidence_publication.outcome == 'success' && steps.evidence_publication.outputs.evidence_ready == 'true' }}
+        # actions/upload-artifact v7.0.2
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: ops-ci-bootstrap-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 7
+          # 只消费本次controller收据及公共IO边界均通过的目录，失败证据不要求ops_exit为零。
+          path: ${{ runner.temp }}/ops-ci-evidence

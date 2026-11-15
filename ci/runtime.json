@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "nodeVersion": "v24.16.0",
+  "dockerExecutable": "/usr/bin/docker",
+  "image": "docker.io/library/node@sha256:ca520832af80fa37a57c14077ed0fcdd83b5aefccc356059fdc3a9a05b78ae1f",
+  "imageId": "sha256:d9e872c3ee59358dc71c3c99957c2d8ccd3f21419fee87b742faddcf00a6ecee",
+  "runnerLabel": "ubuntu-24.04"
+}

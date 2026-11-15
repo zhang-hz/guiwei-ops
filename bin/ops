@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+ops_bin=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+if [ -x "$ops_bin/../runtime/bin/node" ]; then
+  exec "$ops_bin/../runtime/bin/node" "$ops_bin/ops.mjs" "$@"
+fi
+exec node "$ops_bin/ops.mjs" "$@"

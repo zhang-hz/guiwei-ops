@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GUIWEI CI 适配器用例报告",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "suiteId", "nonce", "tests"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "runId": { "type": "string", "pattern": "^run_[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$" },
+    "suiteId": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$" },
+    "nonce": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "tests": {
+      "type": "array", "minItems": 1, "maxItems": 100000,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "status"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1, "maxLength": 256, "pattern": "^[^\\u0000-\\u001f\\u007f]+$" },
+          "status": { "enum": ["passed", "failed", "skipped"] }
+        }
+      }
+    }
+  }
+}

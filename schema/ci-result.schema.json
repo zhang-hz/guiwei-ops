@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GUIWEI CI 父级命令结果",
+  "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "command", "runId", "startedAt", "finishedAt", "status", "exitCode", "environment", "summary", "evidence"],
+  "properties": {
+    "schemaVersion": { "const": 1 }, "command": { "const": "ci" },
+    "runId": { "type": "string", "pattern": "^run_[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$" },
+    "startedAt": { "type": "string", "format": "date-time" }, "finishedAt": { "type": "string", "format": "date-time" },
+    "status": { "enum": ["completed", "equivalent", "failed"] }, "exitCode": { "enum": [0, 2, 10, 20, 30, 40, 50, 60, 70] },
+    "environment": { "const": "isolated" }, "summary": { "type": "string" },
+    "evidence": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": { "path": { "type": "string" }, "sha256": { "$ref": "#/$defs/digest" } } } },
+    "cleanup": { "type": "object", "additionalProperties": false, "required": ["snapshotRemoved"], "properties": { "snapshotRemoved": { "type": "boolean" } } },
+    "evidenceExport": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "runId", "originalExitCode", "files", "gaps"],
+      "properties": {
+        "status": { "enum": ["exported", "incomplete", "rejected"] }, "runId": { "type": ["string", "null"] },
+        "originalExitCode": { "enum": [0, 2, 10, 20, 30, 40, 50, 60, 70] },
+        "files": { "type": "array", "uniqueItems": true, "items": { "enum": ["envelope.json", "result.json", "state.json", "junit.xml"] } },
+        "gaps": { "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["name", "reason"], "properties": { "name": { "type": "string" }, "reason": { "type": "string" } } } }
+      }
+    },
+    "plan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["registryPath", "target", "selector", "selected", "qualification", "partial", "eligible", "policySha256", "registrySha256"],
+      "properties": {
+        "registryPath": { "const": "tools/ci/suite-registry.json" }, "target": { "enum": ["control", "application"] },
+        "selector": { "$ref": "#/$defs/selector" }, "selected": { "type": "array", "items": { "type": "object" } },
+        "qualification": { "const": "m1" }, "partial": { "const": true }, "eligible": { "const": false },
+        "policySha256": { "$ref": "#/$defs/digest" }, "registrySha256": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "ci": {
+      "type": "object", "additionalProperties": false,
+      "required": ["cliVersion", "control", "source", "policy", "registry", "selector", "seed", "suites", "counts", "qualification", "partial", "eligible", "runtime"],
+      "properties": {
+        "cliVersion": { "enum": ["0.1.1", "0.1.2"] },
+        "control": {
+          "type": "object", "additionalProperties": false, "required": ["commitSha", "dirty", "sha256", "trustStatus"],
+          "properties": { "commitSha": { "$ref": "#/$defs/commit" }, "dirty": { "type": "boolean" }, "sha256": { "$ref": "#/$defs/digest" }, "trustStatus": { "const": "candidate" },
+            "treeSha": { "$ref": "#/$defs/commit" }, "indexSha256": { "$ref": "#/$defs/digest" }, "worktreeSha256": { "$ref": "#/$defs/digest" } }
+        },
+        "source": {
+          "type": "object", "additionalProperties": false, "required": ["commitSha", "dirty", "sha256"],
+          "properties": { "commitSha": { "$ref": "#/$defs/commit" }, "dirty": { "type": "boolean" }, "sha256": { "$ref": "#/$defs/digest" },
+            "treeSha": { "$ref": "#/$defs/commit" }, "indexSha256": { "$ref": "#/$defs/digest" }, "worktreeSha256": { "$ref": "#/$defs/digest" } }
+        },
+        "policy": { "type": "object", "additionalProperties": false, "required": ["version", "sha256"], "properties": { "version": { "type": "string" }, "sha256": { "$ref": "#/$defs/digest" } } },
+        "registry": {
+          "type": "object", "additionalProperties": false, "required": ["schemaVersion", "reportVersion", "sha256"],
+          "properties": { "schemaVersion": { "const": 1 }, "reportVersion": { "const": 1 }, "sha256": { "$ref": "#/$defs/digest" } }
+        },
+        "selector": { "$ref": "#/$defs/selector" }, "seed": { "type": "string", "pattern": "^[0-9]+$" },
+        "suites": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/suite" } }, "counts": { "$ref": "#/$defs/counts" },
+        "qualification": { "const": "m1" }, "partial": { "const": true }, "eligible": { "const": false },
+        "runtime": {
+          "type": "object", "additionalProperties": false, "required": ["image", "imageId", "nodeVersion", "dockerVersion", "runnerLabel"],
+          "properties": { "image": { "type": "string", "pattern": "@sha256:[a-f0-9]{64}$" }, "imageId": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }, "nodeVersion": { "const": "v24.16.0" }, "dockerVersion": { "type": "string" }, "runnerLabel": { "const": "ubuntu-24.04" } }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }, "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "strings": { "type": "array", "items": { "type": "string" } },
+    "selector": {
+      "type": "object", "additionalProperties": false, "required": ["profile", "tiers", "suites", "scopes", "files"],
+      "properties": { "profile": { "enum": ["fast", "local", "pr", "release", "extended"] }, "tiers": { "$ref": "#/$defs/strings" }, "suites": { "$ref": "#/$defs/strings" }, "scopes": { "$ref": "#/$defs/strings" }, "files": { "$ref": "#/$defs/strings" } }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false, "required": ["total", "passed", "failed", "skipped"],
+      "properties": { "total": { "type": "integer", "minimum": 0 }, "passed": { "type": "integer", "minimum": 0 }, "failed": { "type": "integer", "minimum": 0 }, "skipped": { "type": "integer", "minimum": 0 } }
+    },
+    "cleanup": {
+      "type": "object", "additionalProperties": false, "required": ["confirmed", "elapsedMs"],
+      "properties": { "confirmed": { "type": "boolean" }, "elapsedMs": { "type": "integer", "minimum": 0 }, "removed": { "type": "boolean" }, "absentFromEngine": { "type": "boolean" }, "notStarted": { "type": "boolean" }, "containers": { "type": "array", "items": { "type": "object" } }, "errors": { "$ref": "#/$defs/strings" } }
+    },
+    "process": {
+      "type": "object", "additionalProperties": false, "required": ["exitCode", "signal", "timedOut", "overflow", "interrupted", "cleanupFailed", "outputBytes", "outputSha256"],
+      "properties": { "exitCode": { "type": ["integer", "null"] }, "cliExitCode": { "type": ["integer", "null"] }, "signal": { "type": ["string", "null"] }, "timedOut": { "type": "boolean" }, "overflow": { "type": "boolean" }, "interrupted": { "type": "boolean" }, "cleanupFailed": { "type": "boolean" }, "outputBytes": { "type": "integer", "minimum": 0 }, "outputSha256": { "$ref": "#/$defs/digest" } }
+    },
+    "suite": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "tier", "status", "reasons", "counts", "process", "cleanup", "reportSha256", "startedAt", "finishedAt"],
+      "properties": {
+        "id": { "type": "string" }, "tier": { "type": "string" }, "status": { "enum": ["passed", "failed", "blocked"] }, "reasons": { "$ref": "#/$defs/strings" },
+        "counts": { "anyOf": [{ "$ref": "#/$defs/counts" }, { "type": "null" }] }, "process": { "anyOf": [{ "$ref": "#/$defs/process" }, { "type": "null" }] },
+        "cleanup": { "$ref": "#/$defs/cleanup" }, "reportSha256": { "anyOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] },
+        "startedAt": { "type": "string", "format": "date-time" }, "finishedAt": { "type": "string", "format": "date-time" },
+        "inspect": { "type": ["object", "null"] }, "canaries": { "type": "array", "items": { "type": "object" } }
+      }
+    }
+  }
+}

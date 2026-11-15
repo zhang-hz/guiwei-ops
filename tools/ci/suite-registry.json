@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "reportVersion": 1,
+  "suites": [
+    {
+      "id": "control-unit", "tier": "unit", "owner": "控制平面",
+      "files": ["tests/ci/protocol.test.mjs", "tests/ci/state.test.mjs", "tests/ci/execution.test.mjs"],
+      "dependsOn": [], "profiles": ["fast", "local", "pr", "release", "extended"], "scopes": ["lib"], "environment": "isolated",
+      "adapter": { "runtime": "node", "entrypoint": "tests/ci/unit-adapter.mjs", "args": [] },
+      "resources": { "cpus": 1, "memoryMb": 512, "pids": 64, "outputBytes": 1048576 },
+      "isolation": { "kind": "container", "network": "none" }, "timeoutMs": 120000, "cleanupTimeoutMs": 15000
+    },
+    {
+      "id": "control-canary", "tier": "integrity", "owner": "控制平面",
+      "files": ["tests/ci/canary.mjs"], "dependsOn": ["control-unit"],
+      "profiles": ["fast", "local", "pr", "release", "extended"], "scopes": ["lib"], "environment": "isolated",
+      "adapter": { "runtime": "node", "entrypoint": "tests/ci/canary.mjs", "args": [] },
+      "resources": { "cpus": 1, "memoryMb": 512, "pids": 64, "outputBytes": 1048576 },
+      "isolation": { "kind": "container", "network": "none" }, "timeoutMs": 240000, "cleanupTimeoutMs": 15000
+    }
+  ]
+}

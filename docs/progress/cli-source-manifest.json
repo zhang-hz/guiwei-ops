@@ -1,0 +1,573 @@
+{
+  "schemaVersion": 1,
+  "cliVersion": "0.1.2",
+  "registryVersion": 1,
+  "reportVersion": 1,
+  "resultVersion": 1,
+  "policyVersion": "m1.1",
+  "generatedAtUtc": "2026-11-15T01:41:52.5564232Z",
+  "baselineHead": "010588837dec2c9fa48aa19b6aadfd6d784a9746",
+  "candidateCommitSha": null,
+  "verificationStatus": "unverified",
+  "trustStatus": "candidate",
+  "authorRole": "Ohm: CLI and appended workflow integration fix owner; not an independent reviewer of this revision",
+  "previousManifestSha256": "934ad2a55c830b90a289ea8815de3b1cadc9a3956195f5fab2e6b2db1b25d52e",
+  "actualOpsCiExecutions": 0,
+  "scope": "CLI-01/02/03 candidate fixes and CLI-04 integrated safe evidence export and workflow publication",
+  "note": "文件身份清单，不是测试、扫描、签名或受信证明；不包含自身。files按控制根、externalInputs按应用根解析。三个追加租约workflow文件同时列于files及externalInputs，后者明确标为author-owned-integration-output；previousSha256为前49项或追加租约输入身份，initialSourceReviewSha256仅继承原41项源码对照。其余外部输入为并行工作区的当前摘要采样，不继承旧review结论。",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 21,
+      "sha256": "1008afc02fc6e874d540bd45922ba292c12376c5e9e172faf84175cd8796bac0",
+      "change": "unchanged",
+      "previousSha256": "1008afc02fc6e874d540bd45922ba292c12376c5e9e172faf84175cd8796bac0",
+      "initialSourceReviewSha256": "1008afc02fc6e874d540bd45922ba292c12376c5e9e172faf84175cd8796bac0"
+    },
+    {
+      "path": ".github/CODEOWNERS",
+      "bytes": 76,
+      "sha256": "c6e1932be4a9e5043debfd8f858ddd0f0e741faf96c47f7b29138de7235cd704",
+      "change": "unchanged",
+      "previousSha256": "c6e1932be4a9e5043debfd8f858ddd0f0e741faf96c47f7b29138de7235cd704",
+      "initialSourceReviewSha256": "c6e1932be4a9e5043debfd8f858ddd0f0e741faf96c47f7b29138de7235cd704"
+    },
+    {
+      "path": ".github/workflows/control-bootstrap.yml",
+      "bytes": 7945,
+      "sha256": "6bb5c42f9197e4e0381ae6e5c2a402e1fd04549e330a209211a8d4f853dcfcec",
+      "change": "modified",
+      "previousSha256": "be353eff6610e066034f296f6f955347d62ce0fcd1ab23f89b687fbffe97ecaf",
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 166,
+      "sha256": "b6c36777a8f0ee22024a4b4705d9a3ab2f4dbbaede0f43796223337731258a8e",
+      "change": "unchanged",
+      "previousSha256": "b6c36777a8f0ee22024a4b4705d9a3ab2f4dbbaede0f43796223337731258a8e",
+      "initialSourceReviewSha256": "b6c36777a8f0ee22024a4b4705d9a3ab2f4dbbaede0f43796223337731258a8e"
+    },
+    {
+      "path": "bin/ops",
+      "bytes": 217,
+      "sha256": "87c26f7c10316003671e9d9e7894c6928d602d2c3494fe474b2219ef3daad519",
+      "change": "unchanged",
+      "previousSha256": "87c26f7c10316003671e9d9e7894c6928d602d2c3494fe474b2219ef3daad519",
+      "initialSourceReviewSha256": "87c26f7c10316003671e9d9e7894c6928d602d2c3494fe474b2219ef3daad519"
+    },
+    {
+      "path": "bin/ops.mjs",
+      "bytes": 74,
+      "sha256": "290ec173fb37cfdc5d55080217a5ea34f81fe439e47d689bccb3e17575088714",
+      "change": "unchanged",
+      "previousSha256": "290ec173fb37cfdc5d55080217a5ea34f81fe439e47d689bccb3e17575088714",
+      "initialSourceReviewSha256": "290ec173fb37cfdc5d55080217a5ea34f81fe439e47d689bccb3e17575088714"
+    },
+    {
+      "path": "bin/ops.ps1",
+      "bytes": 246,
+      "sha256": "f5416b034c0042132a1003af82cff6ae30fedb4079ccaffcd5924c5e6524a914",
+      "change": "unchanged",
+      "previousSha256": "f5416b034c0042132a1003af82cff6ae30fedb4079ccaffcd5924c5e6524a914",
+      "initialSourceReviewSha256": "f5416b034c0042132a1003af82cff6ae30fedb4079ccaffcd5924c5e6524a914"
+    },
+    {
+      "path": "ci/policy.json",
+      "bytes": 417,
+      "sha256": "3f1e9b380d1ab0f434c722fc59d80fdb25c6ffed960c0c5d2a734a91610093cd",
+      "change": "unchanged",
+      "previousSha256": "3f1e9b380d1ab0f434c722fc59d80fdb25c6ffed960c0c5d2a734a91610093cd",
+      "initialSourceReviewSha256": "3f1e9b380d1ab0f434c722fc59d80fdb25c6ffed960c0c5d2a734a91610093cd"
+    },
+    {
+      "path": "ci/runtime.json",
+      "bytes": 325,
+      "sha256": "fc5176713851f18fa509749420e957b7242d484798dbce4f75eddc6abe050968",
+      "change": "unchanged",
+      "previousSha256": "fc5176713851f18fa509749420e957b7242d484798dbce4f75eddc6abe050968",
+      "initialSourceReviewSha256": "fc5176713851f18fa509749420e957b7242d484798dbce4f75eddc6abe050968"
+    },
+    {
+      "path": "docs/contracts/ci-protocol.md",
+      "bytes": 13188,
+      "sha256": "ef4f7b6ead3ac4401ffd62fc2a20ddfe359875174e7663f81de972d4ee8fa89f",
+      "change": "unchanged",
+      "previousSha256": "ef4f7b6ead3ac4401ffd62fc2a20ddfe359875174e7663f81de972d4ee8fa89f",
+      "initialSourceReviewSha256": "ef4f7b6ead3ac4401ffd62fc2a20ddfe359875174e7663f81de972d4ee8fa89f"
+    },
+    {
+      "path": "docs/progress/bootstrap-workflow-fix.md",
+      "bytes": 13184,
+      "sha256": "8f3c9288795b0e7995becb50913ebc5f092db20222aac257d479f266ef99f074",
+      "change": "modified",
+      "previousSha256": "c08c47eb810f78bf7646f031677a43803400e13321a5aa5011f0f7dab40d16a4",
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": "docs/progress/cli-handoff.md",
+      "bytes": 18943,
+      "sha256": "aafd2c291221f1c85529e862559c71731b73349b7ad44526f16aacd77066da70",
+      "change": "modified",
+      "previousSha256": "f8fdc899babc6acfa5c6fa8246cdad0f7a5e0582864604f7df4df125d1070679",
+      "initialSourceReviewSha256": "f4c25f12dc83df4d00b5d24cf6f15877c5b8b8f41bb36c814be1de83e00242a4"
+    },
+    {
+      "path": "docs/workflow-bootstrap.md",
+      "bytes": 11349,
+      "sha256": "5dfb870abb0bde4f851d6fd2e85f205fa60764e8b08978384bf1bfe068c3a2d1",
+      "change": "modified",
+      "previousSha256": "4728570c1e526d5bfa4ff44f69832324712ce4504a02297e68c64e2a026ebe7b",
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": "lib/ci/arguments.mjs",
+      "bytes": 3836,
+      "sha256": "1d5da01a21c82e887e6dc779fabfadb248cb3ee40d39316137e47767bba2c523",
+      "change": "unchanged",
+      "previousSha256": "1d5da01a21c82e887e6dc779fabfadb248cb3ee40d39316137e47767bba2c523",
+      "initialSourceReviewSha256": "3466c916163380046cf7b903af575f8cf9ff711e945e50cd59e3d1a3bdf2dffe"
+    },
+    {
+      "path": "lib/ci/canary-verdict.mjs",
+      "bytes": 4946,
+      "sha256": "18f9ca31dc4518ebb2140db3dc958da5ac04e04adef7d75312b703e6a9fec768",
+      "change": "unchanged",
+      "previousSha256": "18f9ca31dc4518ebb2140db3dc958da5ac04e04adef7d75312b703e6a9fec768",
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": "lib/ci/control-canary.mjs",
+      "bytes": 10487,
+      "sha256": "16b194ccceb39c0ac710e60b44b7fbf9e9a8aef380a562b05a51804230c21c1a",
+      "change": "unchanged",
+      "previousSha256": "16b194ccceb39c0ac710e60b44b7fbf9e9a8aef380a562b05a51804230c21c1a",
+      "initialSourceReviewSha256": "16cc32ce928e4f343c5919daa4f931f787f003d14e5210e159e3550a7e11e769"
+    },
+    {
+      "path": "lib/ci/docker.mjs",
+      "bytes": 17866,
+      "sha256": "c3624cfef9df51a8ba11f3335ba22308433e6c304f7899a474dbdc5a2832bd72",
+      "change": "unchanged",
+      "previousSha256": "c3624cfef9df51a8ba11f3335ba22308433e6c304f7899a474dbdc5a2832bd72",
+      "initialSourceReviewSha256": "3d242a06f8f8513eafc3cd45fd4e47a3418059c2cf464819ab3325611b8ddeae"
+    },
+    {
+      "path": "lib/ci/environment.mjs",
+      "bytes": 660,
+      "sha256": "8ab8332776e8fa4bd3670f0999702abc4754e59c14e3e299a71319f4554ff63e",
+      "change": "unchanged",
+      "previousSha256": "8ab8332776e8fa4bd3670f0999702abc4754e59c14e3e299a71319f4554ff63e",
+      "initialSourceReviewSha256": "8ab8332776e8fa4bd3670f0999702abc4754e59c14e3e299a71319f4554ff63e"
+    },
+    {
+      "path": "lib/ci/evidence-files.mjs",
+      "bytes": 5471,
+      "sha256": "811bc057060dc9a7e8dfc45ab783b1f3176e24d2f4032147815785225d77ee4c",
+      "change": "modified",
+      "previousSha256": "6d977d0adfd75a1a68e8c6007281662ec57ec2e84938eae6da93a3247b8e4afa",
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": "lib/ci/evidence-publication.mjs",
+      "bytes": 8638,
+      "sha256": "3d0c1a5a611a34429de7da6a59d0353acf6851d88211f62adc526f58833701d4",
+      "change": "added",
+      "previousSha256": null,
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": "lib/ci/evidence.mjs",
+      "bytes": 6920,
+      "sha256": "e180a91dba2e5c493f3bbc4974d0bfb0dac0c32f1f0d3863c1ba876f87bd44e4",
+      "change": "modified",
+      "previousSha256": "2baf227476a68a4dc5843062ea377cee8e6d1f18290437f884dae3e1fef08c66",
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": "lib/ci/registry.mjs",
+      "bytes": 7226,
+      "sha256": "44e98389ef41beb2935494cd088eba20351c117f9f90eed18ad8bcc2d69ee9e8",
+      "change": "unchanged",
+      "previousSha256": "44e98389ef41beb2935494cd088eba20351c117f9f90eed18ad8bcc2d69ee9e8",
+      "initialSourceReviewSha256": "44e98389ef41beb2935494cd088eba20351c117f9f90eed18ad8bcc2d69ee9e8"
+    },
+    {
+      "path": "lib/ci/report.mjs",
+      "bytes": 4033,
+      "sha256": "4f6fed2ce960efdafc5a0d51502023110e8e870cbb4a09941d70a4606b355b90",
+      "change": "unchanged",
+      "previousSha256": "4f6fed2ce960efdafc5a0d51502023110e8e870cbb4a09941d70a4606b355b90",
+      "initialSourceReviewSha256": "4f6fed2ce960efdafc5a0d51502023110e8e870cbb4a09941d70a4606b355b90"
+    },
+    {
+      "path": "lib/ci/run.mjs",
+      "bytes": 8037,
+      "sha256": "7be11b0f9f74acf00b9a1e56be7ae9d4cfe83f5c82918f193a8c33029e0665ac",
+      "change": "unchanged",
+      "previousSha256": "7be11b0f9f74acf00b9a1e56be7ae9d4cfe83f5c82918f193a8c33029e0665ac",
+      "initialSourceReviewSha256": "704c15623c0c1be56c4d26f9a15217e50ff9f57e7402dcee3293cd384037542f"
+    },
+    {
+      "path": "lib/ci/runtime.mjs",
+      "bytes": 4475,
+      "sha256": "287192a86e43ed557fc076ccf719ed7caf5e197aada864787c0537c2d7927bf7",
+      "change": "unchanged",
+      "previousSha256": "287192a86e43ed557fc076ccf719ed7caf5e197aada864787c0537c2d7927bf7",
+      "initialSourceReviewSha256": "287192a86e43ed557fc076ccf719ed7caf5e197aada864787c0537c2d7927bf7"
+    },
+    {
+      "path": "lib/ci/scheduler.mjs",
+      "bytes": 1124,
+      "sha256": "c4084f29e2383f4e479f90f3802b9d31e0ebe9c7b808d1028172449d9f72de47",
+      "change": "unchanged",
+      "previousSha256": "c4084f29e2383f4e479f90f3802b9d31e0ebe9c7b808d1028172449d9f72de47",
+      "initialSourceReviewSha256": "c4084f29e2383f4e479f90f3802b9d31e0ebe9c7b808d1028172449d9f72de47"
+    },
+    {
+      "path": "lib/ci/source-git.mjs",
+      "bytes": 2984,
+      "sha256": "1ec22ac5fa614d627bb18dcee94029ca4784adb58c9184e09342a85ff626f062",
+      "change": "unchanged",
+      "previousSha256": "1ec22ac5fa614d627bb18dcee94029ca4784adb58c9184e09342a85ff626f062",
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": "lib/ci/source.mjs",
+      "bytes": 6248,
+      "sha256": "c19b2be5de6ff85edc06d243e0aa99fad36b0a7a8ac4f69e84d173b987bbbc2e",
+      "change": "unchanged",
+      "previousSha256": "c19b2be5de6ff85edc06d243e0aa99fad36b0a7a8ac4f69e84d173b987bbbc2e",
+      "initialSourceReviewSha256": "7942492925699cfe4e6e3f991a3bc059a535ab98b4b734bcbb41561dc3fe55f6"
+    },
+    {
+      "path": "lib/cli.mjs",
+      "bytes": 2902,
+      "sha256": "b5c77e8e7052edfc6ec9b9ce1b99f1d587cb602405ca97e86263ae1889997956",
+      "change": "modified",
+      "previousSha256": "39b471e9e9ab2c27f6201a26b95e18e864da508e3a540ea6bc535dcfdbdbac26",
+      "initialSourceReviewSha256": "768f22853caf323677274453f781e98c5da792bbfc8ccb8d8a4338b27826c300"
+    },
+    {
+      "path": "lib/config.mjs",
+      "bytes": 3830,
+      "sha256": "58ef1e24f5e76815d1f4d55afec3d334ec36756c6587b1be7951ff5d6fb4e580",
+      "change": "unchanged",
+      "previousSha256": "58ef1e24f5e76815d1f4d55afec3d334ec36756c6587b1be7951ff5d6fb4e580",
+      "initialSourceReviewSha256": "58ef1e24f5e76815d1f4d55afec3d334ec36756c6587b1be7951ff5d6fb4e580"
+    },
+    {
+      "path": "lib/core.mjs",
+      "bytes": 3315,
+      "sha256": "829776b19e9fc7ed738f43168f410a451dd81e6659690a715ac8e47cb2059b48",
+      "change": "unchanged",
+      "previousSha256": "829776b19e9fc7ed738f43168f410a451dd81e6659690a715ac8e47cb2059b48",
+      "initialSourceReviewSha256": "378243b319b56d713a9fcffba1173d0b16ddbdfe1dda7998160ee63478c66b63"
+    },
+    {
+      "path": "lib/filesystem.mjs",
+      "bytes": 4960,
+      "sha256": "1a7d2685a9a51e3804b25598e55627168371b5bdc0fb9b8b2119a3778167e25a",
+      "change": "unchanged",
+      "previousSha256": "1a7d2685a9a51e3804b25598e55627168371b5bdc0fb9b8b2119a3778167e25a",
+      "initialSourceReviewSha256": "1a7d2685a9a51e3804b25598e55627168371b5bdc0fb9b8b2119a3778167e25a"
+    },
+    {
+      "path": "lib/process.mjs",
+      "bytes": 3703,
+      "sha256": "51bd7d64577c7ed36813ed0e650ac75fda92a635d02d20c6146647c9b624a1de",
+      "change": "unchanged",
+      "previousSha256": "51bd7d64577c7ed36813ed0e650ac75fda92a635d02d20c6146647c9b624a1de",
+      "initialSourceReviewSha256": "57167a069168dc8cefdde880ee6c11e0d8a859b99d64961c7ebee01337bec2f4"
+    },
+    {
+      "path": "lib/state.mjs",
+      "bytes": 8065,
+      "sha256": "749a2bf923246f981c5da52760102f93e6eee3c7d0c563f39d4e1244fb20d703",
+      "change": "unchanged",
+      "previousSha256": "749a2bf923246f981c5da52760102f93e6eee3c7d0c563f39d4e1244fb20d703",
+      "initialSourceReviewSha256": "0c97d81fc571fe104d7675fab46e9ac84d407ca920c945f5b71e92fee079f84d"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3184,
+      "sha256": "0e12e0ea31a26f3c20b6d58155bca30204cfcb47d6f8e69b10dde3f49a7b3254",
+      "change": "unchanged",
+      "previousSha256": "0e12e0ea31a26f3c20b6d58155bca30204cfcb47d6f8e69b10dde3f49a7b3254",
+      "initialSourceReviewSha256": "0e12e0ea31a26f3c20b6d58155bca30204cfcb47d6f8e69b10dde3f49a7b3254"
+    },
+    {
+      "path": "schema/ci-adapter-report.schema.json",
+      "bytes": 1006,
+      "sha256": "65b104d141a39624fd06a676459e26e2ec49dd52d287d7870147b5987efa227f",
+      "change": "unchanged",
+      "previousSha256": "65b104d141a39624fd06a676459e26e2ec49dd52d287d7870147b5987efa227f",
+      "initialSourceReviewSha256": "65b104d141a39624fd06a676459e26e2ec49dd52d287d7870147b5987efa227f"
+    },
+    {
+      "path": "schema/ci-protocol.d.ts",
+      "bytes": 4793,
+      "sha256": "51f77ea9da529a02c0a906dcb7cbe75e98bf6d873dc08b24939df285cb96bfac",
+      "change": "unchanged",
+      "previousSha256": "51f77ea9da529a02c0a906dcb7cbe75e98bf6d873dc08b24939df285cb96bfac",
+      "initialSourceReviewSha256": "5fb4f728fd346d76d7767b28d56ed069816d88245dc56d077a819287b22b8bc9"
+    },
+    {
+      "path": "schema/ci-registry.schema.json",
+      "bytes": 3560,
+      "sha256": "d1680d98d31936abb707ccccc33a73707dcf63e573cacf30dfcfae32c17c19c5",
+      "change": "unchanged",
+      "previousSha256": "d1680d98d31936abb707ccccc33a73707dcf63e573cacf30dfcfae32c17c19c5",
+      "initialSourceReviewSha256": "d1680d98d31936abb707ccccc33a73707dcf63e573cacf30dfcfae32c17c19c5"
+    },
+    {
+      "path": "schema/ci-result.schema.json",
+      "bytes": 8059,
+      "sha256": "890be4cf389af9cfc090e1c9267fde5be0ac47111d1289e8b9666c579bc0748f",
+      "change": "unchanged",
+      "previousSha256": "890be4cf389af9cfc090e1c9267fde5be0ac47111d1289e8b9666c579bc0748f",
+      "initialSourceReviewSha256": "6624186d9ed10b50656ed1f04a4b7593087fa1e9be16d5455d4a3c6c587a4bac"
+    },
+    {
+      "path": "tests/ci/adapter-context.mjs",
+      "bytes": 801,
+      "sha256": "e44c6e8adfef797ab724edb881e21983db40b54dada163da420027e0cc97aa66",
+      "change": "unchanged",
+      "previousSha256": "e44c6e8adfef797ab724edb881e21983db40b54dada163da420027e0cc97aa66",
+      "initialSourceReviewSha256": "e44c6e8adfef797ab724edb881e21983db40b54dada163da420027e0cc97aa66"
+    },
+    {
+      "path": "tests/ci/canary-verdict.test.mjs",
+      "bytes": 4318,
+      "sha256": "c5d4ae97bb82d7446fc5b35ad22b5bdc132de5c4f0ddbba07672c763db7ae819",
+      "change": "unchanged",
+      "previousSha256": "c5d4ae97bb82d7446fc5b35ad22b5bdc132de5c4f0ddbba07672c763db7ae819",
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": "tests/ci/canary.mjs",
+      "bytes": 4228,
+      "sha256": "67dfe8e21aae0cd2f2cb91d0eb3548afe24779bf908d526d39139364904eba39",
+      "change": "unchanged",
+      "previousSha256": "67dfe8e21aae0cd2f2cb91d0eb3548afe24779bf908d526d39139364904eba39",
+      "initialSourceReviewSha256": "e5e3e215c9d2e352be50ca6127f2f46dfb6fdc55d8b393607a015623672a5738"
+    },
+    {
+      "path": "tests/ci/evidence.test.mjs",
+      "bytes": 17841,
+      "sha256": "fdf2330301664ad1eff88aa59e54f925f58efcecb2e057d28fc2bc37511d2185",
+      "change": "modified",
+      "previousSha256": "945d995ed571765547ad6cd265cea91916180d51b6193d663bae0af5ec232194",
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": "tests/ci/execution.test.mjs",
+      "bytes": 7022,
+      "sha256": "a8a344e1119dfde16654d29af1697c041b5422aff4960e324abde0315747d34a",
+      "change": "unchanged",
+      "previousSha256": "a8a344e1119dfde16654d29af1697c041b5422aff4960e324abde0315747d34a",
+      "initialSourceReviewSha256": "48d1ca6460c30e0aeeafb383c023d2b731db6497ed89f17f0f0132bab09efd41"
+    },
+    {
+      "path": "tests/ci/fixtures.mjs",
+      "bytes": 1286,
+      "sha256": "a86afcad8bfeff082a2f3303f5d70f1e99f24cf08d363c3034aebfdeef2f5fb7",
+      "change": "unchanged",
+      "previousSha256": "a86afcad8bfeff082a2f3303f5d70f1e99f24cf08d363c3034aebfdeef2f5fb7",
+      "initialSourceReviewSha256": "a86afcad8bfeff082a2f3303f5d70f1e99f24cf08d363c3034aebfdeef2f5fb7"
+    },
+    {
+      "path": "tests/ci/protocol.test.mjs",
+      "bytes": 6546,
+      "sha256": "6ecce83031cbbf3c71ffd7cfc4a0d2ea58f1866fe1dae9322593dcbb65023f93",
+      "change": "unchanged",
+      "previousSha256": "6ecce83031cbbf3c71ffd7cfc4a0d2ea58f1866fe1dae9322593dcbb65023f93",
+      "initialSourceReviewSha256": "6ecce83031cbbf3c71ffd7cfc4a0d2ea58f1866fe1dae9322593dcbb65023f93"
+    },
+    {
+      "path": "tests/ci/schema-reference.mjs",
+      "bytes": 2132,
+      "sha256": "0b6c51d8c542587904d4027ef60e939973ad51d9bbced0a17f43f424df815c48",
+      "change": "unchanged",
+      "previousSha256": "0b6c51d8c542587904d4027ef60e939973ad51d9bbced0a17f43f424df815c48",
+      "initialSourceReviewSha256": "0b6c51d8c542587904d4027ef60e939973ad51d9bbced0a17f43f424df815c48"
+    },
+    {
+      "path": "tests/ci/signal-parent.mjs",
+      "bytes": 1548,
+      "sha256": "2566b2e3f9a7f494398fe1aa492660e49914eaf864624d120ad180ddc07d0a35",
+      "change": "unchanged",
+      "previousSha256": "2566b2e3f9a7f494398fe1aa492660e49914eaf864624d120ad180ddc07d0a35",
+      "initialSourceReviewSha256": "be246c87bc3d0ba9592d65545c49434ee4b1ed0829e27bbaea332e2bc51a5528"
+    },
+    {
+      "path": "tests/ci/source-parent.mjs",
+      "bytes": 5106,
+      "sha256": "185cfa481516555af7380d1b8c42893fd39c19a5d1f752aae4e3928b790a1763",
+      "change": "unchanged",
+      "previousSha256": "185cfa481516555af7380d1b8c42893fd39c19a5d1f752aae4e3928b790a1763",
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": "tests/ci/source.test.mjs",
+      "bytes": 5189,
+      "sha256": "33d6ff981024c1d9aabb16867c936e815ae0489586ca7a88c16bec633bb10347",
+      "change": "unchanged",
+      "previousSha256": "33d6ff981024c1d9aabb16867c936e815ae0489586ca7a88c16bec633bb10347",
+      "initialSourceReviewSha256": null
+    },
+    {
+      "path": "tests/ci/state.test.mjs",
+      "bytes": 5628,
+      "sha256": "212544e6843c4b72adb6ac680510ee7835b4b4d737b0fbc5398b4bd879d350ba",
+      "change": "unchanged",
+      "previousSha256": "212544e6843c4b72adb6ac680510ee7835b4b4d737b0fbc5398b4bd879d350ba",
+      "initialSourceReviewSha256": "dc6e359341dec9219705f7468f2defdd94ce4d0af4cae91396bac81f2b7f99bd"
+    },
+    {
+      "path": "tests/ci/unit-adapter.mjs",
+      "bytes": 1021,
+      "sha256": "10ea1c568be9ca58d6c812deb1a02aefe5b9dd219b0e8bf8055d1148780d6c67",
+      "change": "unchanged",
+      "previousSha256": "10ea1c568be9ca58d6c812deb1a02aefe5b9dd219b0e8bf8055d1148780d6c67",
+      "initialSourceReviewSha256": "10ea1c568be9ca58d6c812deb1a02aefe5b9dd219b0e8bf8055d1148780d6c67"
+    },
+    {
+      "path": "tools/ci/suite-registry.json",
+      "bytes": 1231,
+      "sha256": "3ac251064ca0e06ddf18e1410d23a58e0e2ca024fd2e2d42ae375827b8ceb83c",
+      "change": "unchanged",
+      "previousSha256": "3ac251064ca0e06ddf18e1410d23a58e0e2ca024fd2e2d42ae375827b8ceb83c",
+      "initialSourceReviewSha256": "3ac251064ca0e06ddf18e1410d23a58e0e2ca024fd2e2d42ae375827b8ceb83c"
+    }
+  ],
+  "externalInputs": [
+    {
+      "path": "AGENTS.md",
+      "status": "read-only-input",
+      "bytes": 13050,
+      "sha256": "031002a7f5096395fef8925340d8929d299900900fcbac84164a00ccf150ff92"
+    },
+    {
+      "path": "docs/architecture/operations/ci-release-design.md",
+      "status": "read-only-input",
+      "bytes": 16613,
+      "sha256": "87c42f83112b2ca0e28a460761be9cb4bbbf83fc97be1c4af680737eab16a1d6"
+    },
+    {
+      "path": "docs/architecture/operations/ci-test-strategy.md",
+      "status": "read-only-input",
+      "bytes": 25597,
+      "sha256": "7c48f99a645ccddda6606edf6745b70f1525426327db7c5638be94a6f77ac689"
+    },
+    {
+      "path": "docs/architecture/operations/control-plane-design.md",
+      "status": "read-only-input",
+      "bytes": 13822,
+      "sha256": "807349d35298d73a0b40e22d5e4a89201cfafb64ee51e89710e16f84a024c2fa"
+    },
+    {
+      "path": "docs/progress/ci-asset-inventory.md",
+      "status": "read-only-input",
+      "bytes": 128041,
+      "sha256": "4dbcda4f20336c06a2f7adc875587e3837e072d97739c06882fbb13b12cfa94f"
+    },
+    {
+      "path": "docs/progress/control-ci-system-review.md",
+      "status": "read-only-input",
+      "bytes": 22063,
+      "sha256": "22f70c3756efd83e1109ef620d3e7f0c69330d75639be6f2c343e29b655c980d"
+    },
+    {
+      "path": "docs/progress/github-environment-setup.md",
+      "status": "read-only-input",
+      "bytes": 13704,
+      "sha256": "65a0a347edc15d4e6d668e520b42147b3c375468664179d2ee29258c0b2c463c"
+    },
+    {
+      "path": "docs/progress/implementation-contract-audit.md",
+      "status": "read-only-input",
+      "bytes": 54198,
+      "sha256": "a65febf3445cc7dcc41cc3bc293245164ae4ee2cf55d4d897e1badead540d1cc"
+    },
+    {
+      "path": "docs/progress/implementation-dispatch.md",
+      "status": "read-only-input",
+      "bytes": 57973,
+      "sha256": "c692030dc0b1fe3f4cc12a9bbbf73176fcf1944166f3cfda9146253f351a6195"
+    },
+    {
+      "path": "docs/progress/integrated-development-plan.md",
+      "status": "read-only-input",
+      "bytes": 93462,
+      "sha256": "f66d373980318d7d1de955ab07f5a95b8db057d3a5d0a499d87acce337bb6fac"
+    },
+    {
+      "path": "tools/ci/adapter-protocol.mjs",
+      "status": "read-only-input",
+      "bytes": 4911,
+      "sha256": "9fd10d86161fcf0415d2b06397b0563235175952c9f50b3974248f97cf1cef22"
+    },
+    {
+      "path": "tools/ci/suite-registry.json",
+      "status": "read-only-input",
+      "bytes": 1666,
+      "sha256": "c433e6d1a88a224ef82956ea39a6fb514d39ea8e0f72a1198fcbd970e2caa07f"
+    },
+    {
+      "path": "tools/guiwei-ops/.github/workflows/control-bootstrap.yml",
+      "status": "author-owned-integration-output",
+      "bytes": 7945,
+      "sha256": "6bb5c42f9197e4e0381ae6e5c2a402e1fd04549e330a209211a8d4f853dcfcec",
+      "previousSha256": "be353eff6610e066034f296f6f955347d62ce0fcd1ab23f89b687fbffe97ecaf"
+    },
+    {
+      "path": "tools/guiwei-ops/docs/progress/bootstrap-workflow-fix.md",
+      "status": "author-owned-integration-output",
+      "bytes": 13184,
+      "sha256": "8f3c9288795b0e7995becb50913ebc5f092db20222aac257d479f266ef99f074",
+      "previousSha256": "c08c47eb810f78bf7646f031677a43803400e13321a5aa5011f0f7dab40d16a4"
+    },
+    {
+      "path": "tools/guiwei-ops/docs/progress/cli-review.md",
+      "status": "read-only-input",
+      "bytes": 22827,
+      "sha256": "5f681795a2a5e1db8a257a2d9f15aafabc1985d9bd42ef14b6a1935cbb3af21e"
+    },
+    {
+      "path": "tools/guiwei-ops/docs/progress/protocol-handoff.md",
+      "status": "read-only-input",
+      "bytes": 3215,
+      "sha256": "db22539b12cdff395826cb7e7b9413a794e3e3539de45381da0a2efe7f81b1b1"
+    },
+    {
+      "path": "tools/guiwei-ops/docs/progress/protocol-review.md",
+      "status": "read-only-input",
+      "bytes": 14289,
+      "sha256": "56e5e63b2a9f80bad79e139aab2e1ce2b60313249ed60522f8e582b3274ed678"
+    },
+    {
+      "path": "tools/guiwei-ops/docs/progress/protocol-source-manifest.json",
+      "status": "read-only-input",
+      "bytes": 2392,
+      "sha256": "efbdb881b0e28436ff99d49e55f03263028f705af40e80b3e7cd147a88991858"
+    },
+    {
+      "path": "tools/guiwei-ops/docs/runtime-candidate.md",
+      "status": "read-only-input",
+      "bytes": 7152,
+      "sha256": "6c8a3c10e1fe373f550c5c5e32bbf7ba9be47381b4c917c0105898f504a56e44"
+    },
+    {
+      "path": "tools/guiwei-ops/docs/workflow-bootstrap.md",
+      "status": "author-owned-integration-output",
+      "bytes": 11349,
+      "sha256": "5dfb870abb0bde4f851d6fd2e85f205fa60764e8b08978384bf1bfe068c3a2d1",
+      "previousSha256": "4728570c1e526d5bfa4ff44f69832324712ce4504a02297e68c64e2a026ebe7b"
+    }
+  ],
+  "initialReviewManifestSha256": "0697d2db01ede0ede13517a3ac2ea6d8343e7e075b7ab56af81a5001aec17d73",
+  "actualWorkflowExecutions": 0,
+  "actualArtifactIoExecutions": 0,
+  "freezeStatus": "awaiting-independent-GPT-and-DS-review"
+}

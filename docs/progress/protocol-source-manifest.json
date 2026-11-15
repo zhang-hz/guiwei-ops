@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "010588837dec2c9fa48aa19b6aadfd6d784a9746",
+  "qualification": "unverified",
+  "files": [
+    {
+      "path": "ci/policy.json",
+      "bytes": 417,
+      "sha256": "3f1e9b380d1ab0f434c722fc59d80fdb25c6ffed960c0c5d2a734a91610093cd"
+    },
+    {
+      "path": "ci/runtime.json",
+      "bytes": 145,
+      "sha256": "bfcaa46d7532f3ac885513392ff9358d01e7814ac3076f3cb1eab6add89eecdc"
+    },
+    {
+      "path": "docs/contracts/ci-protocol.md",
+      "bytes": 9936,
+      "sha256": "8e4fa5acef7deed9a77388190f5b8b5aee76574faa1e70986ec9f7433134518b"
+    },
+    {
+      "path": "docs/progress/protocol-handoff.md",
+      "bytes": 3215,
+      "sha256": "db22539b12cdff395826cb7e7b9413a794e3e3539de45381da0a2efe7f81b1b1"
+    },
+    {
+      "path": "lib/ci/registry.mjs",
+      "bytes": 7156,
+      "sha256": "54defbeef592d34a1956f15b99f8e2e0b902dd80ee707fb29c54dc86696a63a7"
+    },
+    {
+      "path": "lib/ci/report.mjs",
+      "bytes": 2862,
+      "sha256": "d896aa3390a8bfa74081ff89f5fb8d87c017d93830489a4f73f88a0dc85ae5ce"
+    },
+    {
+      "path": "lib/config.mjs",
+      "bytes": 3830,
+      "sha256": "58ef1e24f5e76815d1f4d55afec3d334ec36756c6587b1be7951ff5d6fb4e580"
+    },
+    {
+      "path": "lib/core.mjs",
+      "bytes": 3217,
+      "sha256": "8f7995e529409c17d38c8e2acda0ab1d0507fbdcbdfa62d5a36b410825c72a5a"
+    },
+    {
+      "path": "lib/filesystem.mjs",
+      "bytes": 4247,
+      "sha256": "fb87419036c7ff364a0ad4ff104c2006f4f6d3d007e4a7a7168756699c4698dc"
+    },
+    {
+      "path": "lib/process.mjs",
+      "bytes": 3478,
+      "sha256": "15c4ab8074196f41baa57437ab9783156bbabf461abd0d23a01dfda28fffb726"
+    },
+    {
+      "path": "lib/state.mjs",
+      "bytes": 7601,
+      "sha256": "2e662e3ee58b9673cdeef496f71d9e8572b7f05afa8abeb49256e835693fbb76"
+    },
+    {
+      "path": "schema/ci-adapter-report.schema.json",
+      "bytes": 1006,
+      "sha256": "65b104d141a39624fd06a676459e26e2ec49dd52d287d7870147b5987efa227f"
+    },
+    {
+      "path": "schema/ci-protocol.d.ts",
+      "bytes": 2737,
+      "sha256": "dedacdb7e464c5b9716250515856967d526ce4a0f213004ad79772c1e6690ead"
+    },
+    {
+      "path": "schema/ci-registry.schema.json",
+      "bytes": 3560,
+      "sha256": "d1680d98d31936abb707ccccc33a73707dcf63e573cacf30dfcfae32c17c19c5"
+    }
+  ]
+}
